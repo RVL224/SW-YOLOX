@@ -2,7 +2,7 @@
 
 ## Installation
 ### Installing on the host machine
-Step1. Install SW-YOLOX.
+Step1. Install SW-YOLOX(CUDA11.3).
 ```shell
 git clone https://github.com/jeasonde/SW-YOLOX.git
 cd SW-YOLOX
