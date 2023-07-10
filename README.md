@@ -1,5 +1,20 @@
 # SW-YOLOX
 
+## Installation
+### Installing on the host machine
+Step1. Install SW-YOLOX.
+```shell
+git clone https://github.com/jeasonde/SW-YOLOX.git
+cd SW-YOLOX
+pip3 install -r requirements.txt
+python3 setup.py develop
+```
+
+Step2. Install Cython.
+```shell
+pip3 install cython_bbox
+```
+
 ## Data preparation
 
 Download [MOT17Det](https://motchallenge.net/), [MOT20Det](https://motchallenge.net/), [CrowdHuman](https://www.crowdhuman.org/), [Cityperson](https://github.com/Zhongdao/Towards-Realtime-MOT/blob/master/DATASET_ZOO.md), [ETHZ](https://github.com/Zhongdao/Towards-Realtime-MOT/blob/master/DATASET_ZOO.md) and put them under <SW-YOLOX_HOME>/datasets in the following structure:
@@ -43,4 +58,43 @@ cd <SW-YOLOX_HOME>
 python3 tools/mix_data_ablation.py
 python3 tools/mix_data_test_mot17.py
 python3 tools/mix_data_test_mot20.py
+```
+
+## Training
+
+The COCO pretrained YOLOX model can be downloaded from their [model zoo](https://github.com/Megvii-BaseDetection/YOLOX/tree/0.1.0). After downloading the pretrained models, you can put them under <SW-YOLOX_HOME>/pretrained.
+
+* **Train MOT17[X]**
+
+```shell
+cd <SW-YOLOX_HOME>
+python3 tools/train.py -f exps/example/mot/yolox_x_mix_det.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_x.pth
+```
+
+* **Train MOT17[Nano]**
+
+```shell
+cd <SW-YOLOX_HOME>
+python3 tools/train.py -f exps/example/mot yolox_nano_mix_det.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
+```
+
+* **Train MOT20[X]**
+
+```shell
+cd <SW-YOLOX_HOME>
+python3 tools/train.py -f exps/example/mot/yolox_x_mix_mot20.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_x.pth
+```
+
+* **Train MOT20[Nano]**
+
+```shell
+cd <SW-YOLOX_HOME>
+python3 tools/train.py -f exps/example/mot yolox_nano_mix_mot20.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
+```
+
+## Demo
+
+```shell
+cd <SW-YOLOX_HOME>
+python3 tools/demo.py video -f exps/example/mot/yolox_x_mix_det.py -c <YOUR_WEIGHT> --fp16 --fuse --save_result
 ```
