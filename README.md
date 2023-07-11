@@ -9,8 +9,12 @@ cd SW-YOLOX
 pip3 install -r requirements.txt
 python3 setup.py develop
 ```
+Step2. Install pycocotools.
+```shell
+pip3 install cython; pip3 install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+```
 
-Step2. Install Cython.
+Step3. Install Cython.
 ```shell
 pip3 install cython_bbox
 ```
