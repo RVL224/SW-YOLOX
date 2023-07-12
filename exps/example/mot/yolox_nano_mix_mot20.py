@@ -29,6 +29,26 @@ class Exp(MyExp):
         self.no_aug_epochs = 10
         self.basic_lr_per_img = 0.001 / 64.0
         self.warmup_epochs = 1
+        self.output_dir = "./MOT20"
+
+    def get_model(self, sublinear=False):
+
+        def init_yolo(M):
+            for m in M.modules():
+                if isinstance(m, nn.BatchNorm2d):
+                    m.eps = 1e-3
+                    m.momentum = 0.03
+        if "model" not in self.__dict__:
+            from yolox.models import YOLOX, YOLOPAFPN, YOLOXHead
+            in_channels = [256, 512, 1024]
+            # NANO model use depthwise = True, which is main difference.
+            backbone = YOLOPAFPN(self.depth, self.width, in_channels=in_channels, depthwise=True)
+            head = YOLOXHead(self.num_classes, self.width, in_channels=in_channels, depthwise=True)
+            self.model = YOLOX(backbone, head)
+
+        self.model.apply(init_yolo)
+        self.model.head.initialize_biases(1e-2)
+        return self.model
 
     def get_data_loader(self, batch_size, is_distributed, no_aug=False):
         from yolox.data import (
@@ -48,7 +68,7 @@ class Exp(MyExp):
             preproc=TrainTransform(
                 rgb_means=(0.485, 0.456, 0.406),
                 std=(0.229, 0.224, 0.225),
-                max_labels=600,
+                max_labels=500,
             ),
         )
 
@@ -59,7 +79,7 @@ class Exp(MyExp):
             preproc=TrainTransform(
                 rgb_means=(0.485, 0.456, 0.406),
                 std=(0.229, 0.224, 0.225),
-                max_labels=1200,
+                max_labels=1000,
             ),
             degrees=self.degrees,
             translate=self.translate,
@@ -99,7 +119,7 @@ class Exp(MyExp):
             data_dir=os.path.join(get_yolox_datadir(), "MOT20"),
             json_file=self.val_ann,
             img_size=self.test_size,
-            name='test', # change to train when running on training set
+            name='train',
             preproc=ValTransform(
                 rgb_means=(0.485, 0.456, 0.406),
                 std=(0.229, 0.224, 0.225),
