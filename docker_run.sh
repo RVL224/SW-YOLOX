@@ -4,7 +4,7 @@
 #mkdir -p pretrained && \
 #mkdir -p YOLOX_outputs && \
 xhost +local: && \
-sudo docker run --gpus all -it --rm --shm-size 8G\
+sudo docker run --gpus all -it --rm --shm-size 8G \
 -v $PWD/:/workspace/SW-YOLOX/ \
 -v /tmp/.X11-unix/:/tmp/.X11-unix:rw \
 --device /dev/video0:/dev/video0:mwr \
