@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/tensorrt:21.09-py3
+FROM nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ARG USERNAME=user
