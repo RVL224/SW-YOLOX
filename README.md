@@ -59,7 +59,6 @@ Before mixing different datasets, you need to follow the operations in [mix_xxx.
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/mix_data_ablation.py
 python3 tools/mix_data_test_mot17.py
 python3 tools/mix_data_test_mot20.py
 ```
