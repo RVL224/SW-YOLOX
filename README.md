@@ -71,7 +71,7 @@ The COCO pretrained YOLOX model can be downloaded from their [model zoo](https:/
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/train.py -f exps/example/mot/yolox_x_mix_det.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_x.pth
+python3 tools/train.py -f exps/example/mot/yolox_x_mix_det.py -d 1 -b 2 --fp16 -o -c pretrained/yolox_x.pth
 ```
 
 * **Train MOT17[Nano]**
@@ -92,7 +92,7 @@ python3 tools/train.py -f exps/example/mot/yolox_x_mix_mot20.py -d 1 -b 2 --fp16
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/train.py -f exps/example/mot/yolox_nano_mix_mot20.py -d 1 -b 2 --fp16 -o -c pretrained/yolox_nano.pth
+python3 tools/train.py -f exps/example/mot/yolox_nano_mix_mot20.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
 ```
 
 ## Demo
