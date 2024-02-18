@@ -6,8 +6,5 @@ from .darknet import CSPDarknet, Darknet
 from .losses import IOUloss
 from .yolo_fpn import YOLOFPN
 from .yolo_head import YOLOXHead
-from .yolo_pafpn import YOLOPAFPN
+from .swyolo_pafpn import SWYOLOPAFPN, YOLOPAFPN
 from .yolox import YOLOX
-
-from .expandingv2 import PatchExpandv2
-from .shift import ShiftViTBlockv2 as ShiftViTBlock
