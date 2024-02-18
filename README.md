@@ -9,7 +9,7 @@ Please cite this article if you use our work in your research.
 ### Installing on the host machine
 Step1. Install SW-YOLOX(CUDA11.3).
 ```shell
-git clone https://github.com/jeasonde/SW-YOLOX.git
+git clone https://github.com/RVL224/SW-YOLOX.git
 cd SW-YOLOX
 pip3 install -r requirements.txt
 python3 setup.py develop
@@ -76,33 +76,33 @@ The COCO pretrained YOLOX model can be downloaded from their [model zoo](https:/
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/train.py -f exps/example/mot/yolox_x_mix_det.py -d 1 -b 2 --fp16 -o -c pretrained/yolox_x.pth
+python3 tools/train.py -f exps/example/mot/swyolox_x_mix_det.py -d 1 -b 2 --fp16 -o -c pretrained/yolox_x.pth
 ```
 
 * **Train MOT17[Nano]**
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/train.py -f exps/example/mot/yolox_nano_mix_det.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
+python3 tools/train.py -f exps/example/mot/swyolox_nano_mix_det.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
 ```
 
 * **Train MOT20[X]**
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/train.py -f exps/example/mot/yolox_x_mix_mot20.py -d 1 -b 2 --fp16 -o -c pretrained/yolox_x.pth
+python3 tools/train.py -f exps/example/mot/swyolox_x_mix_mot20.py -d 1 -b 2 --fp16 -o -c pretrained/yolox_x.pth
 ```
 
 * **Train MOT20[Nano]**
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/train.py -f exps/example/mot/yolox_nano_mix_mot20.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
+python3 tools/train.py -f exps/example/mot/swyolox_nano_mix_mot20.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
 ```
 
-## Demo
+## Demo or Test
 
 ```shell
 cd <SW-YOLOX_HOME>
-python3 tools/demo.py video -f exps/example/mot/yolox_x_mix_det.py -c <YOUR_WEIGHT> --fp16 --fuse --save_result
+python3 tools/demo.py video -f exps/example/mot/swyolox_x_mix_det.py -c <YOUR_WEIGHT> --fp16 --fuse --save_result
 ```
