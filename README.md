@@ -114,5 +114,5 @@ python3 tools/eval.py -f exps/example/<YOUR_config (mot,voc or cityperson)> -c <
 ```
 
 | Method           |Version |Datasets | config | download |                                                                                                                                                                                                                                                                                                                                                                                      
-| ---------------- | -------- | --------- | ------- |
+| ---------------- | -------- | --------- | ------- |------- |
 | SW-YOLOX |Nano | MOT17 | [config](https://github.com/RVL224/SW-YOLOX/blob/main/exps/example/mot/swyolox_nano_mix_det.py) | [model](https://gofile.me/7mkEI/CGHicUVhq) \|
