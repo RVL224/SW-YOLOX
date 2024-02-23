@@ -100,9 +100,15 @@ cd <SW-YOLOX_HOME>
 python3 tools/train.py -f exps/example/mot/swyolox_nano_mix_mot20.py -d 1 -b 16 --fp16 -o -c pretrained/yolox_nano.pth
 ```
 
-## Demo or Test
+## Demo
 
 ```shell
 cd <SW-YOLOX_HOME>
 python3 tools/demo.py video -f exps/example/mot/swyolox_x_mix_det.py -c <YOUR_WEIGHT> --fp16 --fuse --save_result
+```
+## Test
+
+```shell
+cd <SW-YOLOX_HOME>
+python3 tools/eval.py -f exps/example/<YOUR_config (mot,voc or cityperson)> -c <YOUR_WEIGHT> 
 ```
