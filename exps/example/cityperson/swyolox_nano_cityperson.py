@@ -7,27 +7,50 @@ import torch.distributed as dist
 
 from yolox.exp import Exp as MyExp
 from yolox.data import get_yolox_datadir
+import uuid 
 
 class Exp(MyExp):
     def __init__(self):
         super(Exp, self).__init__()
         self.num_classes = 1
-        self.depth = 1.33
-        self.width = 1.25
+        self.depth = 0.33
+        self.width = 0.25
+        self.scale = (0.5, 1.5)
         self.exp_name = os.path.split(os.path.realpath(__file__))[1].split(".")[0]
         self.train_ann = "train.json"
-        self.val_ann = "val_half.json"
-        self.input_size = (800, 1440)
-        self.test_size = (800, 1440)
-        self.random_size = (18, 32)
+        self.val_ann = 'val.json' 
+        self.input_size = (416, 416) 
+        self.test_size = (416, 416)
+        self.random_size = (10, 20)
         self.max_epoch = 80
         self.print_interval = 20
         self.eval_interval = 5
-        self.test_conf = 0.1
+        self.test_conf = 0.001
         self.nmsthre = 0.7
-        self.no_aug_epochs = 10
-        self.basic_lr_per_img = 0.001 / 64.0
+        self.no_aug_epochs = 15
+        self.basic_lr_per_img = 0.01 / 64.0
         self.warmup_epochs = 1
+        self.test_conf = 0.001
+        self.seed = uuid.uuid4().int % 2**32
+
+    def get_model(self, sublinear=False):
+
+        def init_yolo(M):
+            for m in M.modules():
+                if isinstance(m, nn.BatchNorm2d):
+                    m.eps = 1e-3
+                    m.momentum = 0.03
+        if "model" not in self.__dict__:
+            from yolox.models import YOLOX, SWYOLOPAFPN, YOLOXHead
+            in_channels = [256, 512, 1024]
+            # NANO model use depthwise = True, which is main difference.
+            backbone = SWYOLOPAFPN(self.depth, self.width, in_channels=in_channels, depthwise=True)
+            head = YOLOXHead(self.num_classes, self.width, in_channels=in_channels, depthwise=True)
+            self.model = YOLOX(backbone, head)
+
+        self.model.apply(init_yolo)
+        self.model.head.initialize_biases(1e-2)
+        return self.model
 
     def get_data_loader(self, batch_size, is_distributed, no_aug=False):
         from yolox.data import (
@@ -40,9 +63,9 @@ class Exp(MyExp):
         )
 
         dataset = MOTDataset(
-            data_dir=os.path.join(get_yolox_datadir(), "mix_mot_ch"),
+            data_dir=os.path.join(get_yolox_datadir(), "cityperson"),
             json_file=self.train_ann,
-            name='',
+            name='images',
             img_size=self.input_size,
             preproc=TrainTransform(
                 rgb_means=(0.485, 0.456, 0.406),
@@ -95,10 +118,10 @@ class Exp(MyExp):
         from yolox.data import MOTDataset, ValTransform
 
         valdataset = MOTDataset(
-            data_dir=os.path.join(get_yolox_datadir(), "mot"),
+            data_dir=os.path.join(get_yolox_datadir(), "cityperson"),
             json_file=self.val_ann,
             img_size=self.test_size,
-            name='train',
+            name='images',
             preproc=ValTransform(
                 rgb_means=(0.485, 0.456, 0.406),
                 std=(0.229, 0.224, 0.225),

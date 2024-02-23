@@ -7,6 +7,7 @@ import torch.distributed as dist
 
 from yolox.exp import Exp as MyExp
 from yolox.data import get_yolox_datadir
+import uuid
 
 class Exp(MyExp):
     def __init__(self):
@@ -19,7 +20,6 @@ class Exp(MyExp):
         self.val_ann = "test.json"   # change to train.json when running on training set
         self.input_size = (896, 1600)
         self.test_size = (896, 1600)
-        #self.test_size = (736, 1920)
         self.random_size = (20, 36)
         self.max_epoch = 80
         self.print_interval = 20
@@ -29,6 +29,7 @@ class Exp(MyExp):
         self.no_aug_epochs = 10
         self.basic_lr_per_img = 0.001 / 64.0
         self.warmup_epochs = 1
+        self.seed = uuid.uuid4().int % 2**32
 
     def get_model(self, sublinear=False):
 

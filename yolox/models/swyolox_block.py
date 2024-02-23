@@ -1,6 +1,3 @@
-# 
-# Implementation of SW-YOLO blocks
-#
 from einops import rearrange
 import torch
 import torch.nn as nn

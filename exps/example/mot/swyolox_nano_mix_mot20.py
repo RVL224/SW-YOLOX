@@ -7,7 +7,7 @@ import torch.distributed as dist
 
 from yolox.exp import Exp as MyExp
 from yolox.data import get_yolox_datadir
-
+import uuid
 class Exp(MyExp):
     def __init__(self):
         super(Exp, self).__init__()
@@ -30,6 +30,7 @@ class Exp(MyExp):
         self.basic_lr_per_img = 0.001 / 64.0
         self.warmup_epochs = 1
         self.output_dir = "./MOT20"
+        self.seed = uuid.uuid4().int % 2**32
 
     def get_model(self, sublinear=False):
 
