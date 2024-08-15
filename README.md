@@ -1,7 +1,7 @@
 # SW-YOLOX
 This repo is an implementation of a lightweight SW-YOLOX detector published in the following article:
 
-Chi-Yi Tsai, Run-Yu Wang and Yu-Chen Chiu, "SW-YOLOX: A YOLOX-Based Real-Time Pedestrian Detector with Shift Window-Mixed Attention Mechanism," Neurocomputing, Under Review.
+Chi-Yi Tsai, Run-Yu Wang and Yu-Chen Chiu, "SW-YOLOX: A YOLOX-Based Real-Time Pedestrian Detector with Shift Window-Mixed Attention Mechanism," Neurocomputing, accepted for publication, DOI: https://doi.org/10.1016/j.neucom.2024.128357
 
 Please cite this article if you use our work in your research.
 
